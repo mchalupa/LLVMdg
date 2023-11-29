@@ -106,7 +106,7 @@ Pointer
 LLVMPointerGraphBuilder::handleConstantBitCast(const llvm::CastInst *BC) {
     using namespace llvm;
 
-    if (!BC->isLosslessCast()) {
+    if (!BC->getSrcTy()->canLosslesslyBitCastTo(BC->getDestTy())) {
         // If this is a cast to a bigger type (if that can ever happen?),
         // then preserve the pointer. Otherwise, the pointer is cropped,
         // and there's nothing we can do...

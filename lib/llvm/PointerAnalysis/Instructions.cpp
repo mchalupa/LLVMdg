@@ -127,7 +127,7 @@ Offset accumulateEVOffsets(const llvm::ExtractValueInst *EV,
         if (llvm::StructType *STy = llvm::dyn_cast<llvm::StructType>(type)) {
             assert(STy->indexValid(idx) && "Invalid index");
             const llvm::StructLayout *SL = DL.getStructLayout(STy);
-            off += SL->getElementOffset(idx);
+            off += SL->getElementOffset(idx).getFixedValue();
         } else {
             // array or vector, so just move in the array
             if (auto *arrTy = llvm::dyn_cast<llvm::ArrayType>(type)) {

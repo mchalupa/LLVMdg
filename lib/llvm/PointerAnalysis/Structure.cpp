@@ -139,7 +139,7 @@ void LLVMPointerGraphBuilder::addCFGEdges(
     // check whether we created the entry block. If not, we would
     // have a problem while adding successors, so fake that
     // the entry block is the root or the last argument
-    const llvm::BasicBlock *entry = &F->getBasicBlockList().front();
+    const llvm::BasicBlock *entry = &F->front();
     auto it = finfo.llvmBlocks.find(entry);
     if (it != finfo.llvmBlocks.end()) {
         // if we have the entry block, just make it the successor

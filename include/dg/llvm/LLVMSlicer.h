@@ -2,6 +2,7 @@
 #define LLVM_DG_SLICER_H_
 
 #include <llvm/Config/llvm-config.h>
+#include <llvm/IR/Module.h>
 #if ((LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR < 5))
 #include <llvm/Support/CFG.h>
 #else
@@ -228,7 +229,7 @@ void sliceCallNode(LLVMNode *callNode, uint32_t slice_id)
 
         Value *fval = graph->getEntry()->getKey();
         Function *F = cast<Function>(fval);
-        F->getBasicBlockList().push_back(block);
+        F->insert(F->end(), block);
 
         // fill in basic block just with return value
         ReturnInst *RI;
@@ -585,7 +586,7 @@ void sliceCallNode(LLVMNode *callNode, uint32_t slice_id)
 
         // set it as a new entry by pusing the block to the front
         // of the list
-        F->getBasicBlockList().push_front(block);
+        F->insert(F->begin(), block);
 
         // FIXME: propagate this change to dependence graph
     }

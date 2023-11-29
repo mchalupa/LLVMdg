@@ -1,3 +1,4 @@
+#include <llvm/IR/IntrinsicInst.h>
 #include <set>
 #include <unordered_map>
 #include <utility>
@@ -1258,7 +1259,7 @@ void LLVMDependenceGraph::addDefUseEdges(bool preserveDbg) {
                 else if (auto *DI = dyn_cast<DbgValueInst>(&I))
                     val = DI->getValue();
 #if LLVM_VERSION_MAJOR > 5
-                else if (auto *DI = dyn_cast<DbgAddrIntrinsic>(&I))
+                else if (auto *DI = dyn_cast<DbgAssignIntrinsic>(&I))
                     val = DI->getAddress();
 #endif
 

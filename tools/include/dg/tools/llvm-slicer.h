@@ -372,7 +372,7 @@ class ModuleWriter {
                 globals.insert(gv);
         }
 
-        for (GlobalAlias &ga : M->getAliasList()) {
+        for (GlobalAlias &ga : M->aliases()) {
             if (ga.hasNUses(0))
                 aliases.insert(&ga);
         }

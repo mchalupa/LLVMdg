@@ -518,7 +518,8 @@ void RelationsAnalyzer::remGen(ValueRelations &graph,
 
 void RelationsAnalyzer::castGen(ValueRelations &graph,
                                 const llvm::CastInst *cast) {
-    if (cast->isLosslessCast() || cast->isNoopCast(module.getDataLayout()))
+    if (cast->getSrcTy()->canLosslesslyBitCastTo(cast->getDestTy()) ||
+        cast->isNoopCast(module.getDataLayout()))
         graph.setEqual(cast, cast->getOperand(0));
 }
 
